@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from '../components/Persons/Person/Person'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 class App extends Component {
 
   state = {
@@ -76,24 +77,19 @@ class App extends Component {
     };
     let persons = null;
     if(this.state.showPersons){
-      persons = (
-        <div>
-          { 
-            this.state.persons.map((person,index) => {
-              return <Person 
-              click={() => this.deletePersonsHandler(index)}
-              name={person.name} 
-              age={person.age} />
-            })
-          }
-        </div>
-      );
+      persons = <Persons 
+         persons={this.state.persons}
+         clicked={this.deletePersonsHandler}
+         changed={this.changeNameHandler} />;
+      
     }
 
     return (
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
+        <Cockpit 
+        showPersons={this.state.showPersons} 
+        persons={this.state.persons}
+        clicked={this.togglePersonsHandler}  />
         {persons}
       </div>
     );
